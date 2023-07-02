@@ -14,7 +14,7 @@ import (
 
 // 自定义 jwt 中自定义区域的数据
 type JwtCustomClaims struct {
-	Id   int
+	Id   uint
 	Name string
 	jwt.RegisteredClaims
 }
@@ -23,7 +23,7 @@ type JwtCustomClaims struct {
 var signedKey = []byte(viper.GetString("jwt.signedKey"))
 
 // 生成 jwt 令牌
-func GenerateToken(id int, name string) (string, error) {
+func GenerateToken(id uint, name string) (string, error) {
 	jwtClaims := JwtCustomClaims{
 		Id:   id,
 		Name: name,

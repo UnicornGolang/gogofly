@@ -1,7 +1,9 @@
 package api
 
 import (
+	"gogofly/service"
 	"gogofly/service/dto"
+	"gogofly/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -9,11 +11,13 @@ import (
 // api 定义
 type UserApi struct{
   BaseApi
+  Service *service.UserService
 }
 
 func NewUserApi() UserApi {
 	return UserApi{
     BaseApi: NewBaseApi(),
+    Service: service.NewUserService(),
   }
 }
 
@@ -60,8 +64,22 @@ func (m UserApi) Login(ctx *gin.Context) {
     return
   }
 
+  // 用户登录
+  user, err := m.Service.Login(userDTO)
+  if err != nil {
+    m.Fail(ResponseJson{
+      Msg: err.Error(),
+    })
+    return
+  }
+
+  token, _ := utils.GenerateToken(user.ID, user.Name)
+
 	m.OK(ResponseJson{
-		Data: userDTO,
+		Data: gin.H{
+      "token": token,
+      "user": user,
+    },
 	})
 }
 
