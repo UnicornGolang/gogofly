@@ -14,11 +14,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"github.com/go-playground/validator"
 	"github.com/go-playground/validator/v10"
 	"github.com/spf13/viper"
 	swaggerfiles "github.com/swaggo/files"
-	"github.com/swaggo/gin-swagger"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 type IRegisterFn = func(public *gin.RouterGroup, private *gin.RouterGroup)
@@ -47,10 +46,10 @@ func InitRouter() {
 	auth := r.Group("/api/v1")
 
 	// 初始化基础服务平台的 路由
-	InitBasePlatformRoutes()
+	initBasePlatformRoutes()
 
 	// 注册自定义的校验器
-	registerCusValidator()
+	registerCapitalizedValidator()
 
 	// 集成 swagger
 	// 生成的 swagger 文档的访问交给项目来管理
@@ -94,17 +93,22 @@ func InitRouter() {
 	global.Log.Info("服务停止成功")
 }
 
-func InitBasePlatformRoutes() {
+func initBasePlatformRoutes() {
 	InitUserRoutes()
 	InitAbortRoutes()
 }
 
 // 自定义校验器
-func registerCusValidator() {
+func registerCapitalizedValidator() {
+	// 获取到字段绑定校验器引擎
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		// 向校验器中注册一个方法，capitalized
 		_ = v.RegisterValidation("capitalized", func(fl validator.FieldLevel) bool {
+			// 注册的校验函数的内容是：当校验的字段类型为 string 的时候, 如果字段不为空
+			// 并且值服务 title 样式则校验通过，否则无法校验通过，返回 false
 			if value, ok := fl.Field().Interface().(string); ok {
-				if value != "" && strings.ToTitle(value) == value {
+				// 校验通过的条件，必须为 非空并且符合 title 规则
+				if value != "" && strings.Title(value) == value {
 					return true
 				}
 			}
