@@ -1,0 +1,20 @@
+server:
+  port: 8000
+log:
+  MaxSize: 1 # 日志文件的最大大小
+  MaxBackups: 10 # 日志文件保留的份数
+  MaxAge: 90 # 日志文件最多保存多少天
+db:
+  dsn: root:root@tcp(172.20.48.1:3306)/gogofly?charset=utf8mb4&parseTime=True&loc=Local
+  maxIdleConn: 100
+  maxOpenConn: 300
+
+mode:
+  develop: true # 当前程序启动的模式，是否以开发模式启动程序
+
+redis:
+  url: localhost:6380
+
+jwt:
+  signedKey: foobar@alex.com
+  tokenExpire: 30 # token 有效期, 时间为 MINUTE
