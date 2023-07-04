@@ -18,3 +18,11 @@ redis:
 jwt:
   signedKey: foobar@alex.com
   tokenExpire: 30 # token 有效期, 时间为 MINUTE
+
+ansible:
+  user:
+    name: root
+    password: abc123
+  shutdownHost: 
+    args: "192.168.88.90"
+
