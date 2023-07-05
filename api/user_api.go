@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"gogofly/service"
 	"gogofly/service/dto"
 	"gogofly/utils"
@@ -8,17 +9,26 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 按照模块将服务的错误码提取出来
+var (
+	ERR_CODE_ADD_USER      = 10011
+	ERR_CODE_USRT_BY_ID    = 10012
+	ERR_CODE_GET_USER_LIST = 10013
+	ERR_CODE_UPDATE_UASER  = 10014
+  ERR_CODE_DEL_UESR      = 10015
+)
+
 // api 定义
-type UserApi struct{
-  BaseApi
-  Service *service.UserService
+type UserApi struct {
+	BaseApi
+	Service *service.UserService
 }
 
 func NewUserApi() UserApi {
 	return UserApi{
-    BaseApi: NewBaseApi(),
-    Service: service.NewUserService(),
-  }
+		BaseApi: NewBaseApi(),
+		Service: service.NewUserService(),
+	}
 }
 
 // @Tags 用户管理
@@ -37,20 +47,10 @@ func (m UserApi) Login(ctx *gin.Context) {
 	// OK(ctx, ResponseJson {
 	//   Msg: "Login success",
 	// })
+	// -----------------------------------------
 
-	//==========================================================================
-	// 参数绑定
-	// ---------------
-	// > ShouldBind() 将传递的 JSON 格式的数据与结构体绑定,不满足条件返回错误信息
-	// > Bind() 将数据绑定到结构体，不满足绑定的条件则直接返回客户端请求
-
-	// -------------------------------------------------------------------------
-	// Should* 开头的方法会返回错误给对应的调用场景，让调用者自己处理抛出的异常
-	// Bind* 开头的方法会直接 AbortWithError(), 状态码 400，直接返回 客户端
-
-  //==========================================================================
-  // 移动到 BaseAPI 中统一处理
-  // -------------------------
+	// 移动到 BaseAPI 中统一处理
+	// -----------------------------------------
 	var userDTO dto.UserLoginDTO
 	// if errs := ctx.ShouldBind(&userDTO); errs != nil {
 	// 	Fail(ctx, ResponseJson{
@@ -60,37 +60,145 @@ func (m UserApi) Login(ctx *gin.Context) {
 	// 	})
 	// 	return
 	// }
-  if err := m.BuildRequest(BuildRequestOption{Ctx: ctx, DTO: &userDTO}).GetError(); err != nil {
-    return
-  }
+	if err := m.BuildRequest(BuildRequestOption{Ctx: ctx, DTO: &userDTO}).GetError(); err != nil {
+		return
+	}
 
-  // 用户登录
-  user, err := m.Service.Login(userDTO)
-  if err != nil {
-    m.Fail(ResponseJson{
-      Msg: err.Error(),
-    })
-    return
-  }
+	// 用户登录
+	user, err := m.Service.Login(userDTO)
+	if err != nil {
+		m.Fail(ResponseJson{
+			Msg: err.Error(),
+		})
+		return
+	}
 
-  token, _ := utils.GenerateToken(user.ID, user.Name)
+	token, _ := utils.GenerateToken(user.ID, user.Name)
 
 	m.OK(ResponseJson{
 		Data: gin.H{
-      "token": token,
-      "user": user,
-    },
+			"token": token,
+			"user":  user,
+		},
 	})
 }
 
 // @Tags 用户管理
-// @Summary 用户注册
-// @Description 用户注册信息详细描述
+// @Summary 添加用户
+// @Description 添加用户的详细描述
 // @Param name formData string true "用户名"
 // @Param password formData string true "用户密码"
-func (m UserApi) Register(ctx *gin.Context) {
-	Fail(ctx, ResponseJson{
-		Code: 9001,
-		Msg:  "Register Error",
+// @Param email formData string true "用户邮箱"
+// @Param mobile formData string true "用户手机号码"
+// @Param avatar formData file "用户头像"
+func (m UserApi) AddUser(c *gin.Context) {
+	var userDTO dto.UserAddDTO
+	if err := m.BuildRequest(BuildRequestOption{Ctx: c, DTO: &userDTO}).GetError(); err != nil {
+		return
+	}
+  // 添加用户可能需要上传图片
+  file, _ := c.FormFile("file")
+  fmt.Println(file.Filename)
+  filePath := fmt.Sprintf("./upload/%s", file.Filename)
+  _ = c.SaveUploadedFile(file, filePath)
+  // 图片的路径保存到数据库
+  userDTO.Avatar = filePath
+	err := m.Service.AddUser(&userDTO)
+	if err != nil {
+		m.ServerFail(ResponseJson{
+			Code: ERR_CODE_ADD_USER,
+			Msg:  err.Error(),
+		})
+		return
+	}
+	m.OK(ResponseJson{
+		Data: userDTO,
 	})
+}
+
+// @Tags 用户管理
+// @Summary 根据用户 Id 查找
+// @Description 根据用户 Id 精确查找某个用户的详细信息
+func (m UserApi) GetUserById(c *gin.Context) {
+	var commonDTO dto.CommonDTO
+	if err := m.BuildRequest(BuildRequestOption{Ctx: c, DTO: &commonDTO, BindUri: true}).GetError(); err != nil {
+		return
+	}
+	//
+	user, err := m.Service.GerUserById(&commonDTO)
+	if err != nil {
+		m.ServerFail(ResponseJson{
+			Code: ERR_CODE_USRT_BY_ID,
+			Msg:  err.Error(),
+		})
+		return
+	}
+	m.OK(ResponseJson{
+		Data: user,
+	})
+}
+
+// @Tags 用户管理
+// @Summary 查找用户列表
+// @Description 根据分页参数获取用户列表信息
+func (m UserApi) GetUserList(c *gin.Context) {
+	var userListDTO dto.UserListDTO
+	if err := m.BuildRequest(BuildRequestOption{Ctx: c, DTO: &userListDTO}).GetError(); err != nil {
+		return
+	}
+	userList, total, err := m.Service.GetUserList(&userListDTO)
+	if err != nil {
+		m.ServerFail(ResponseJson{
+			Code: ERR_CODE_GET_USER_LIST,
+			Msg:  err.Error(),
+		})
+		return
+	}
+	m.OK(ResponseJson{
+		Data:  userList,
+		Total: total,
+	})
+}
+
+// @Tags 用户管理
+// @Summary 用户信息更新
+// @Description 用户信息更新，需要传入用户的 ID,更新用户的名称,电话,邮箱,头像等
+// @Param id uri uint true "用户主键ID"
+// @Param name json string false "用户名"
+// @Param email json string true "用户邮箱"
+// @Param mobile json string true "用户手机号码"
+// @Param avatar json file "用户头像"
+func (m UserApi) UpdateUser(c *gin.Context) {
+	var userUpdateDTO dto.UserUpdateDTO
+  if err := m.BuildRequest(BuildRequestOption{Ctx: c, DTO: &userUpdateDTO, BindAll: true}).GetError(); err != nil {
+		return
+	}
+	err := m.Service.UpdateUser(userUpdateDTO)
+	if err != nil {
+		m.ServerFail(ResponseJson{
+			Code: ERR_CODE_UPDATE_UASER,
+			Msg:  err.Error(),
+		})
+		return
+	}
+	m.OK(ResponseJson{})
+}
+
+// @Tags 用户管理
+// @Summary 根据 Id 删除用户
+// @Summary 根据 Id 主键删除用户
+func (m UserApi) DelUserById(c *gin.Context) {
+  var commonDTO dto.CommonDTO
+  if err := m.BuildRequest(BuildRequestOption{Ctx: c, DTO: &commonDTO, BindUri: true}).GetError(); err != nil {
+    return
+  }
+  err := m.Service.DelUserById(&commonDTO)
+  if err != nil {
+    m.ServerFail(ResponseJson{
+      Code: ERR_CODE_DEL_UESR,
+      Msg: err.Error(),
+    })
+    return
+  }
+  m.OK(ResponseJson{})
 }

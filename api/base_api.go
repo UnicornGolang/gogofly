@@ -20,16 +20,17 @@ type BaseApi struct {
 }
 
 func NewBaseApi() BaseApi {
-  return BaseApi {
-    Logger: global.Log,
-  }
+	return BaseApi{
+		Logger: global.Log,
+	}
 }
 
 // 用于接收用于封装请求的对象
 type BuildRequestOption struct {
-	Ctx               *gin.Context
-	DTO               any
-	BindParamsFromUri bool
+	Ctx     *gin.Context
+	DTO     any
+	BindUri bool
+	BindAll bool
 }
 
 // 添加异常
@@ -47,11 +48,21 @@ func (m *BaseApi) BuildRequest(option BuildRequestOption) *BaseApi {
 	// 绑定请求上下文
 	m.Ctx = option.Ctx
 	// 绑定请求数据
+	//==========================================================================
+	// 参数绑定
+	// ---------------
+	// > ShouldBind() 将传递的 JSON 格式的数据与结构体绑定,不满足条件返回错误信息
+	// > Bind() 将数据绑定到结构体，不满足绑定的条件则直接返回客户端请求
+	// -------------------------------------------------------------------------
+	// Should* 开头的方法会返回错误给对应的调用场景，让调用者自己处理抛出的异常
+	// Bind* 开头的方法会直接 AbortWithError(), 状态码 400，直接返回 客户端
+	//==========================================================================
 	if option.DTO != nil {
-		if option.BindParamsFromUri {
+		if option.BindUri || option.BindAll {
 			errResult = m.Ctx.ShouldBindUri(option.DTO)
-		} else {
-			errResult = m.Ctx.ShouldBind(option.DTO)
+		}
+		if option.BindAll || !option.BindUri {
+			errResult = utils.AppendError(errResult, m.Ctx.ShouldBind(option.DTO))
 		}
 		if errResult != nil {
 			errResult = m.parseValidateError(errResult, option.DTO)
@@ -65,13 +76,13 @@ func (m *BaseApi) BuildRequest(option BuildRequestOption) *BaseApi {
 }
 
 // 分析元素对象上绑定的 tag 信息
-func (m *BaseApi) parseValidateError(errs error , target any) error {
+func (m *BaseApi) parseValidateError(errs error, target any) error {
 	var errResult error
-  // 先判断错误的类型是否为校验字段异常的类型，如果不是直接返回
-  validateErr, ok := errs.(validator.ValidationErrors)
-  if !ok {
-    return errs
-  }
+	// 先判断错误的类型是否为校验字段异常的类型，如果不是直接返回
+	validateErr, ok := errs.(validator.ValidationErrors)
+	if !ok {
+		return errs
+	}
 	// 通过反射获取指针指向元素的类型对象
 	fields := reflect.TypeOf(target).Elem()
 	// 遍历返回的校验错误信息
@@ -97,15 +108,13 @@ func (m *BaseApi) parseValidateError(errs error , target any) error {
 
 // 对基础返回再次封装
 func (m *BaseApi) OK(resp ResponseJson) {
-  OK(m.Ctx, resp)
+	OK(m.Ctx, resp)
 }
 
 func (m *BaseApi) Fail(resp ResponseJson) {
-  Fail(m.Ctx, resp)
+	Fail(m.Ctx, resp)
 }
 
 func (m *BaseApi) ServerFail(resp ResponseJson) {
-  ServerFail(m.Ctx, resp)
+	ServerFail(m.Ctx, resp)
 }
-
-

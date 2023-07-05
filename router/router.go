@@ -11,6 +11,7 @@ import (
 
 	_ "gogofly/docs"
 	global "gogofly/global/constants"
+	"gogofly/middleware"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
@@ -40,6 +41,10 @@ func InitRouter() {
 	defer cancel()
 
 	r := gin.Default()
+
+	// 引入跨域中间件
+	r.Use(middleware.Cors())
+
 	// 对应的开发 API 的前缀
 	public := r.Group("/api/v1/public")
 	// 对应的需要认证的 API 的前缀
@@ -96,6 +101,7 @@ func InitRouter() {
 func initBasePlatformRoutes() {
 	InitUserRoutes()
 	InitAbortRoutes()
+	InitHostRoutes()
 }
 
 // 自定义校验器

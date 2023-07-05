@@ -12,6 +12,7 @@ type ResponseJson struct {
 	Code   int    `json:"code,omitempty"`
 	Msg    string `json:"msg,omitempty"`
 	Data   any    `json:"data,omitempty"`
+	Total  int64  `json:"total,omitempty"`
 }
 
 // 判断返回对象是否为空

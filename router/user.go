@@ -2,7 +2,6 @@ package router
 
 import (
 	"gogofly/api"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,28 +18,17 @@ func InitUserRoutes() {
 		{
 			// 设置开放 API
 			publicUser.POST("/login", userApi.Login)
-			publicUser.POST("/register", userApi.Register)
+			publicUser.POST("/register", userApi.AddUser)
 		}
 
 		// 设置共有前缀,
 		authUser := auth.Group("user")
 		{
 			// 设置需要认证的 API
-			authUser.GET("", func(ctx *gin.Context) {
-				// { data: { id: 1, name: "zs"}}
-				ctx.JSON(http.StatusOK, gin.H{
-					"data": []map[string]any{
-						{"id": 1, "name": "zs"},
-						{"id": 2, "name": "ls"},
-					},
-				})
-			})
-			authUser.GET("/:id", func(ctx *gin.Context) {
-				ctx.JSON(http.StatusOK, gin.H{
-					"id":   1,
-					"name": "zs",
-				})
-			})
+			authUser.GET("/:id", userApi.GetUserById)
+			authUser.POST("/list", userApi.GetUserList)
+			authUser.PUT("/:id", userApi.UpdateUser)
+      authUser.DELETE("/:id", userApi.DelUserById)
 		}
 	})
 }
