@@ -1,0 +1,253 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	number	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/unicorn/go/src/code.unicorn.com/gogofly/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+Abort	api/abort_api.go	24;"	f	struct:api.AbortApi
+AbortApi	api/abort_api.go	6;"	s	package:api
+Accept	api/abort_api.go	18;"	f	struct:api.AbortApi
+AddError	api/base_api.go	37;"	f	struct:api.BaseApi
+AddUser	api/user_api.go	113;"	f	struct:api.UserApi
+AddUser	dao/user_dao.go	29;"	f	struct:dao.UserDao	typeref:typename:error
+AddUser	service/user_service.go	51;"	f	struct:service.UserService	typeref:typename:error
+AppendError	utils/utils.go	5;"	f	package:utils	typeref:typename:error
+Auth	middleware/auth.go	23;"	f	package:middleware	typeref:typename:func(c *gin.Context)
+Avatar	model/User.go	13;"	m	struct:model.User	typeref:typename:string
+Avatar	service/dto/user_dto.go	29;"	m	struct:dto.UserAddDTO	typeref:typename:string
+BaseApi	api/base_api.go	16;"	s	package:api
+BaseApi	api/host_api.go	12;"	M	struct:api.HostApi	typeref:typename:BaseApi
+BaseApi	api/user_api.go	29;"	M	struct:api.UserApi	typeref:typename:BaseApi
+BaseDao	dao/base_dao.go	9;"	s	package:dao
+BaseDao	dao/user_dao.go	9;"	M	struct:dao.UserDao	typeref:typename:BaseDao
+BaseService	service/base_service.go	3;"	s	package:service
+BaseService	service/user_service.go	13;"	M	struct:service.UserService	typeref:typename:BaseService
+BeforeCreate	model/User.go	35;"	f	struct:model.User	typeref:typename:(err error)
+BindAll	api/base_api.go	33;"	m	struct:api.BuildRequestOption	typeref:typename:bool
+BindUri	api/base_api.go	32;"	m	struct:api.BuildRequestOption	typeref:typename:bool
+BuildRequest	api/base_api.go	46;"	f	struct:api.BaseApi	typeref:typename:*BaseApi
+BuildRequestOption	api/base_api.go	29;"	s	package:api
+CheckUserExist	dao/user_dao.go	40;"	f	struct:dao.UserDao	typeref:typename:bool
+Children	generate/useStructTransJson.go	19;"	m	struct:generate.Node	typeref:typename:[]Node
+Clean	cmd/cmd.go	58;"	f	package:cmd
+Code	api/response.go	12;"	m	struct:api.ResponseJson	typeref:typename:int
+CommonDTO	service/dto/common_dto.go	4;"	s	package:dto
+CompareHashAndPassword	utils/crypto.go	14;"	f	package:utils	typeref:typename:bool
+ConvertToModel	service/dto/user_dto.go	36;"	f	struct:dto.UserAddDTO
+ConvertToModel	service/dto/user_dto.go	57;"	f	struct:dto.UserUpdateDTO
+Cors	middleware/cors.go	11;"	f	package:middleware	typeref:typename:gin.HandlerFunc
+Ctx	api/base_api.go	17;"	m	struct:api.BaseApi	typeref:typename:*gin.Context
+Ctx	api/base_api.go	30;"	m	struct:api.BuildRequestOption	typeref:typename:*gin.Context
+DB	global/constants/global.go	12;"	v	package:global	typeref:typename:*gorm.DB
+DTO	api/base_api.go	31;"	m	struct:api.BuildRequestOption	typeref:typename:any
+DURATION	config/redis.go	13;"	v	package:config
+Dao	service/user_service.go	14;"	m	struct:service.UserService	typeref:typename:*dao.UserDao
+Data	api/response.go	14;"	m	struct:api.ResponseJson	typeref:typename:any
+Del	config/redis.go	47;"	f	struct:config.RedisClient	typeref:typename:(any, error)
+DelUserById	api/user_api.go	209;"	f	struct:api.UserApi
+DelUserById	dao/user_dao.go	91;"	f	struct:dao.UserDao	typeref:typename:error
+DelUserById	service/user_service.go	83;"	f	struct:service.UserService	typeref:typename:error
+ERR_CODE_ADD_USER	api/user_api.go	19;"	c	package:api
+ERR_CODE_DEL_UESR	api/user_api.go	23;"	c	package:api
+ERR_CODE_GET_USER_LIST	api/user_api.go	21;"	c	package:api
+ERR_CODE_INVALID_TOKEN	middleware/auth.go	19;"	c	package:middleware
+ERR_CODE_LOGIN	api/user_api.go	24;"	c	package:api
+ERR_CODE_UPDATE_UASER	api/user_api.go	22;"	c	package:api
+ERR_CODE_USRT_BY_ID	api/user_api.go	20;"	c	package:api
+Email	model/User.go	15;"	m	struct:model.User	typeref:typename:string
+Email	service/dto/user_dto.go	31;"	m	struct:dto.UserAddDTO	typeref:typename:string
+Email	service/dto/user_dto.go	54;"	m	struct:dto.UserUpdateDTO	typeref:typename:string
+Encrypt	model/User.go	40;"	f	struct:model.User
+Encrypt	utils/crypto.go	5;"	f	package:utils	typeref:typename:(string)
+Errors	api/base_api.go	18;"	m	struct:api.BaseApi	typeref:typename:error
+Fail	api/base_api.go	114;"	f	struct:api.BaseApi
+Fail	api/response.go	39;"	f	package:api
+GenerateToken	utils/jwt.go	26;"	f	package:utils	typeref:typename:(string, error)
+GenerateUseMap	generate/useMapTransJson.go	14;"	f	package:generate
+GenerateUseStruct	generate/useStructTransJson.go	12;"	f	package:generate
+GerUserById	service/user_service.go	64;"	f	struct:service.UserService	typeref:typename:(model.User, error)
+Get	config/redis.go	43;"	f	struct:config.RedisClient	typeref:typename:(any, error)
+GetError	api/base_api.go	42;"	f	struct:api.BaseApi	typeref:typename:error
+GetKeyTTL	config/redis.go	51;"	f	struct:config.RedisClient	typeref:typename:(time.Duration, error)
+GetLimit	service/dto/common_dto.go	23;"	f	struct:dto.Paginate	typeref:typename:int
+GetPage	service/dto/common_dto.go	16;"	f	struct:dto.Paginate	typeref:typename:int
+GetUserById	api/user_api.go	141;"	f	struct:api.UserApi
+GetUserById	dao/user_dao.go	46;"	f	struct:dao.UserDao	typeref:typename:(model.User, error)
+GetUserByName	dao/user_dao.go	23;"	f	struct:dao.UserDao	typeref:typename:(model.User, error)
+GetUserList	api/user_api.go	163;"	f	struct:api.UserApi
+GetUserList	dao/user_dao.go	53;"	f	struct:dao.UserDao	typeref:typename:([]model.User, int64, error)
+GetUserList	service/user_service.go	69;"	f	struct:service.UserService	typeref:typename:([]model.User, int64, error)
+HostApi	api/host_api.go	11;"	s	package:api
+HostIP	service/dto/host_dto.go	4;"	m	struct:dto.ShowdownDTO	typeref:typename:string
+HostService	service/host_service.go	14;"	s	package:service
+HttpResponse	api/response.go	25;"	f	package:api
+ID	service/dto/common_dto.go	5;"	m	struct:dto.CommonDTO	typeref:typename:uint
+ID	service/dto/user_dto.go	26;"	m	struct:dto.UserAddDTO	typeref:typename:uint
+ID	service/dto/user_dto.go	50;"	m	struct:dto.UserUpdateDTO	typeref:typename:uint
+IRegisterFn	router/router.go	24;"	a	package:router	typeref:typename:func(public *gin.RouterGroup, private *gin.RouterGroup)
+Id	utils/jwt.go	17;"	m	struct:utils.JwtCustomClaims	typeref:typename:uint
+InValid	utils/jwt.go	54;"	f	package:utils	typeref:typename:bool
+InitAbortRoutes	router/abort.go	10;"	f	package:router
+InitConfig	config/config.go	8;"	f	package:config
+InitDb	config/db.go	15;"	f	package:config	typeref:typename:(*gorm.DB, error)
+InitHostRoutes	router/host.go	11;"	f	package:router
+InitLogger	config/logger.go	16;"	f	package:config	typeref:typename:*zap.SugaredLogger
+InitRedis	config/redis.go	18;"	f	package:config	typeref:typename:(*RedisClient, error)
+InitRouter	router/router.go	38;"	f	package:router
+InitUserRoutes	router/user.go	9;"	f	package:router
+JwtCustomClaims	utils/jwt.go	16;"	s	package:utils
+LOGIN_USRE_TOKEN_REDIS_PREFIX	global/constants/constants.go	4;"	c	package:global
+Limit	service/dto/common_dto.go	12;"	m	struct:dto.Paginate	typeref:typename:int
+Log	global/constants/global.go	11;"	v	package:global	typeref:typename:*zap.SugaredLogger
+Logger	api/base_api.go	19;"	m	struct:api.BaseApi	typeref:typename:*zap.SugaredLogger
+Login	api/user_api.go	48;"	f	struct:api.UserApi
+Login	service/user_service.go	29;"	f	struct:service.UserService	typeref:typename:(model.User, string, error)
+Mobile	model/User.go	14;"	m	struct:model.User	typeref:typename:string
+Mobile	service/dto/user_dto.go	30;"	m	struct:dto.UserAddDTO	typeref:typename:string
+Mobile	service/dto/user_dto.go	53;"	m	struct:dto.UserUpdateDTO	typeref:typename:string
+Model	model/User.go	10;"	M	struct:model.User	typeref:typename:gorm.Model
+Msg	api/response.go	13;"	m	struct:api.ResponseJson	typeref:typename:string
+Name	model/User.go	11;"	m	struct:model.User	typeref:typename:string
+Name	service/dto/user_dto.go	15;"	m	struct:dto.UserLoginDTO	typeref:typename:string
+Name	service/dto/user_dto.go	27;"	m	struct:dto.UserAddDTO	typeref:typename:string
+Name	service/dto/user_dto.go	51;"	m	struct:dto.UserUpdateDTO	typeref:typename:string
+Name	utils/jwt.go	18;"	m	struct:utils.JwtCustomClaims	typeref:typename:string
+NewAbortApi	api/abort_api.go	9;"	f	package:api	typeref:typename:AbortApi
+NewBaseApi	api/base_api.go	22;"	f	package:api	typeref:typename:BaseApi
+NewBaseDao	dao/base_dao.go	13;"	f	package:dao	typeref:typename:BaseDao
+NewHostApi	api/host_api.go	16;"	f	package:api	typeref:typename:HostApi
+NewHostService	service/host_service.go	18;"	f	package:service	typeref:typename:*HostService
+NewUserApi	api/user_api.go	33;"	f	package:api	typeref:typename:UserApi
+NewUserDao	dao/user_dao.go	14;"	f	package:dao	typeref:typename:*UserDao
+NewUserService	service/user_service.go	19;"	f	package:service	typeref:typename:*UserService
+Node	generate/useStructTransJson.go	17;"	s	package:generate
+OK	api/base_api.go	110;"	f	struct:api.BaseApi
+OK	api/response.go	34;"	f	package:api
+Orm	dao/base_dao.go	10;"	m	struct:dao.BaseDao	typeref:typename:*gorm.DB
+Page	service/dto/common_dto.go	11;"	m	struct:dto.Paginate	typeref:typename:int
+Paginate	dao/common_dao.go	10;"	f	package:dao	typeref:typename:func(orm *gorm.DB) *gorm.DB
+Paginate	service/dto/common_dto.go	10;"	s	package:dto
+Paginate	service/dto/user_dto.go	21;"	M	struct:dto.UserListDTO	typeref:typename:Paginate
+ParseToken	utils/jwt.go	41;"	f	package:utils	typeref:typename:(JwtCustomClaims, error)
+Password	model/User.go	16;"	m	struct:model.User	typeref:typename:string
+Password	service/dto/user_dto.go	16;"	m	struct:dto.UserLoginDTO	typeref:typename:string
+Password	service/dto/user_dto.go	32;"	m	struct:dto.UserAddDTO	typeref:typename:string
+RDB	global/constants/global.go	13;"	v	package:global	typeref:typename:*config.RedisClient
+RealName	model/User.go	12;"	m	struct:model.User	typeref:typename:string
+RealName	service/dto/user_dto.go	28;"	m	struct:dto.UserAddDTO	typeref:typename:string
+RealName	service/dto/user_dto.go	52;"	m	struct:dto.UserUpdateDTO	typeref:typename:string
+RedisClient	config/redis.go	16;"	s	package:config
+RegisterRoute	router/router.go	30;"	f	package:router
+RegisteredClaims	utils/jwt.go	19;"	M	struct:utils.JwtCustomClaims	typeref:typename:jwt.RegisteredClaims
+ResponseJson	api/response.go	10;"	s	package:api
+ServerFail	api/base_api.go	118;"	f	struct:api.BaseApi
+ServerFail	api/response.go	43;"	f	package:api
+Service	api/host_api.go	13;"	m	struct:api.HostApi	typeref:typename:*service.HostService
+Service	api/user_api.go	30;"	m	struct:api.UserApi	typeref:typename:*service.UserService
+Set	config/redis.go	33;"	f	struct:config.RedisClient	typeref:typename:error
+SetLoginUserTokenToRedis	api/user_api.go	98;"	f	package:api	typeref:typename:error
+Showdown	service/host_service.go	27;"	f	struct:service.HostService	typeref:typename:error
+ShowdownDTO	service/dto/host_dto.go	3;"	s	package:dto
+Shutdown	api/host_api.go	23;"	f	struct:api.HostApi
+Start	cmd/cmd.go	11;"	f	package:cmd
+Status	api/response.go	11;"	m	struct:api.ResponseJson	typeref:typename:int
+SwaggerInfo	docs/docs.go	71;"	v	package:docs
+TOKEN_NAME	middleware/auth.go	17;"	c	package:middleware
+TOKEN_PREFIX	middleware/auth.go	18;"	c	package:middleware
+Text	generate/useStructTransJson.go	18;"	m	struct:generate.Node	typeref:typename:string
+Total	api/response.go	15;"	m	struct:api.ResponseJson	typeref:typename:int64
+UpdateTTL	config/redis.go	55;"	f	struct:config.RedisClient	typeref:typename:(error)
+UpdateUser	api/user_api.go	190;"	f	struct:api.UserApi
+UpdateUser	dao/user_dao.go	67;"	f	struct:dao.UserDao	typeref:typename:error
+UpdateUser	service/user_service.go	74;"	f	struct:service.UserService	typeref:typename:error
+User	model/User.go	9;"	s	package:model
+UserAddDTO	service/dto/user_dto.go	25;"	s	package:dto
+UserApi	api/user_api.go	28;"	s	package:api
+UserDao	dao/user_dao.go	8;"	s	package:dao
+UserListDTO	service/dto/user_dto.go	20;"	s	package:dto
+UserLoginDTO	service/dto/user_dto.go	9;"	s	package:dto
+UserService	service/user_service.go	12;"	s	package:service
+UserUpdateDTO	service/dto/user_dto.go	49;"	s	package:dto
+api	api/abort_api.go	1;"	p
+api	api/base_api.go	1;"	p
+api	api/host_api.go	1;"	p
+api	api/response.go	1;"	p
+api	api/user_api.go	1;"	p
+buildStatus	api/response.go	48;"	f	package:api	typeref:typename:int
+cmd	cmd/cmd.go	1;"	p
+config	config/config.go	1;"	p
+config	config/db.go	1;"	p
+config	config/logger.go	1;"	p
+config	config/redis.go	1;"	p
+creatDir	generate/useMapTransJson.go	59;"	f	package:generate
+dao	dao/base_dao.go	1;"	p
+dao	dao/common_dao.go	1;"	p
+dao	dao/user_dao.go	1;"	p
+docTemplate	docs/docs.go	7;"	c	package:docs
+docs	docs/docs.go	3;"	p
+dto	service/dto/common_dto.go	1;"	p
+dto	service/dto/host_dto.go	1;"	p
+dto	service/dto/user_dto.go	1;"	p
+generate	generate/project.go	1;"	p
+generate	generate/useMapTransJson.go	1;"	p
+generate	generate/useStructTransJson.go	1;"	p
+getEncoder	config/logger.go	37;"	f	package:config	typeref:typename:zapcore.Encoder
+getWriteSyncer	config/logger.go	49;"	f	package:config	typeref:typename:zapcore.WriteSyncer
+ginSwagger	router/router.go	21;"	P	package:github.com/swaggo/gin-swagger
+global	api/base_api.go	6;"	P	package:gogofly/global/constants
+global	api/host_api.go	4;"	P	package:gogofly/global/constants
+global	api/user_api.go	5;"	P	package:gogofly/global/constants
+global	cmd/cmd.go	6;"	P	package:gogofly/global/constants
+global	dao/base_dao.go	4;"	P	package:gogofly/global/constants
+global	global/constants/constants.go	1;"	p
+global	global/constants/global.go	1;"	p
+global	middleware/auth.go	5;"	P	package:gogofly/global/constants
+global	router/router.go	13;"	P	package:gogofly/global/constants
+global	service/host_service.go	6;"	P	package:gogofly/global/constants
+hostService	service/host_service.go	16;"	v	package:service	typeref:typename:*HostService
+init	docs/docs.go	82;"	f	package:docs
+init	generate/project.go	19;"	f	package:generate
+initBasePlatformRoutes	router/router.go	101;"	f	package:router
+isEmpty	api/response.go	19;"	f	struct:api.ResponseJson	typeref:typename:bool
+jsonData	generate/useMapTransJson.go	11;"	v	package:generate	typeref:typename:map[string]any
+loadJsonUseMap	generate/useMapTransJson.go	20;"	f	package:generate
+lumberjack	config/logger.go	12;"	P	package:gopkg.in/natefinch/lumberjack.v2
+main	main.go	16;"	f	package:main
+main	main.go	1;"	p
+makedir	generate/useStructTransJson.go	43;"	f	package:generate
+middleware	middleware/auth.go	1;"	p
+middleware	middleware/cors.go	1;"	p
+model	model/User.go	1;"	p
+paeseNode	generate/useStructTransJson.go	32;"	f	package:generate
+parseArray	generate/useMapTransJson.go	52;"	f	package:generate
+parseMap	generate/useMapTransJson.go	29;"	f	package:generate
+parseValidateError	api/base_api.go	79;"	f	struct:api.BaseApi	typeref:typename:error
+premain	main.go	8;"	f	package:main
+redisClient	config/redis.go	12;"	v	package:config	typeref:typename:*redis.Client
+registerCapitalizedValidator	router/router.go	108;"	f	package:router
+rootNode	generate/useStructTransJson.go	10;"	v	package:generate	typeref:typename:Node
+router	router/abort.go	1;"	p
+router	router/host.go	1;"	p
+router	router/router.go	1;"	p
+router	router/user.go	1;"	p
+routers	router/router.go	27;"	v	package:router	typeref:typename:[]IRegisterFn
+separator	generate/project.go	15;"	v	package:generate	typeref:typename:string
+service	service/base_service.go	1;"	p
+service	service/host_service.go	1;"	p
+service	service/user_service.go	1;"	p
+signedKey	utils/jwt.go	23;"	v	package:utils
+swaggerfiles	router/router.go	20;"	P	package:github.com/swaggo/files
+test_token	cmd/cmd.go	62;"	f	package:cmd
+tokenErr	middleware/auth.go	64;"	f	package:middleware
+useStructTransJson	generate/useStructTransJson.go	23;"	f	package:generate
+userDao	dao/user_dao.go	12;"	v	package:dao	typeref:typename:*UserDao
+userService	service/user_service.go	17;"	v	package:service	typeref:typename:*UserService
+utils	utils/crypto.go	1;"	p
+utils	utils/jwt.go	1;"	p
+utils	utils/utils.go	1;"	p
+workDir	generate/project.go	14;"	v	package:generate	typeref:typename:string

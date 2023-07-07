@@ -4,18 +4,19 @@ import (
 	"fmt"
 	"gogofly/service"
 	"gogofly/service/dto"
-	"gogofly/utils"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 // 按照模块将服务的错误码提取出来
-var (
+const (
 	ERR_CODE_ADD_USER      = 10011
 	ERR_CODE_USRT_BY_ID    = 10012
 	ERR_CODE_GET_USER_LIST = 10013
 	ERR_CODE_UPDATE_UASER  = 10014
-  ERR_CODE_DEL_UESR      = 10015
+	ERR_CODE_DEL_UESR      = 10015
+	ERR_CODE_LOGIN         = 10016
 )
 
 // api 定义
@@ -65,16 +66,21 @@ func (m UserApi) Login(ctx *gin.Context) {
 	}
 
 	// 用户登录
-	user, err := m.Service.Login(userDTO)
+	user, token, err := m.Service.Login(userDTO)
 	if err != nil {
 		m.Fail(ResponseJson{
-			Msg: err.Error(),
+			Status: http.StatusUnauthorized,
+			Code:   ERR_CODE_LOGIN,
+			Msg:    err.Error(),
 		})
 		return
 	}
-
-	token, _ := utils.GenerateToken(user.ID, user.Name)
-
+	if err != nil {
+		m.Fail(ResponseJson{
+			Code: ERR_CODE_LOGIN,
+			Msg:  err.Error(),
+		})
+	}
 	m.OK(ResponseJson{
 		Data: gin.H{
 			"token": token,
@@ -82,6 +88,7 @@ func (m UserApi) Login(ctx *gin.Context) {
 		},
 	})
 }
+
 
 // @Tags 用户管理
 // @Summary 添加用户
@@ -96,13 +103,13 @@ func (m UserApi) AddUser(c *gin.Context) {
 	if err := m.BuildRequest(BuildRequestOption{Ctx: c, DTO: &userDTO}).GetError(); err != nil {
 		return
 	}
-  // 添加用户可能需要上传图片
-  file, _ := c.FormFile("file")
-  fmt.Println(file.Filename)
-  filePath := fmt.Sprintf("./upload/%s", file.Filename)
-  _ = c.SaveUploadedFile(file, filePath)
-  // 图片的路径保存到数据库
-  userDTO.Avatar = filePath
+	// 添加用户可能需要上传图片
+	file, _ := c.FormFile("file")
+	fmt.Println(file.Filename)
+	filePath := fmt.Sprintf("./upload/%s", file.Filename)
+	_ = c.SaveUploadedFile(file, filePath)
+	// 图片的路径保存到数据库
+	userDTO.Avatar = filePath
 	err := m.Service.AddUser(&userDTO)
 	if err != nil {
 		m.ServerFail(ResponseJson{
@@ -170,7 +177,7 @@ func (m UserApi) GetUserList(c *gin.Context) {
 // @Param avatar json file "用户头像"
 func (m UserApi) UpdateUser(c *gin.Context) {
 	var userUpdateDTO dto.UserUpdateDTO
-  if err := m.BuildRequest(BuildRequestOption{Ctx: c, DTO: &userUpdateDTO, BindAll: true}).GetError(); err != nil {
+	if err := m.BuildRequest(BuildRequestOption{Ctx: c, DTO: &userUpdateDTO, BindAll: true}).GetError(); err != nil {
 		return
 	}
 	err := m.Service.UpdateUser(userUpdateDTO)
@@ -188,17 +195,17 @@ func (m UserApi) UpdateUser(c *gin.Context) {
 // @Summary 根据 Id 删除用户
 // @Summary 根据 Id 主键删除用户
 func (m UserApi) DelUserById(c *gin.Context) {
-  var commonDTO dto.CommonDTO
-  if err := m.BuildRequest(BuildRequestOption{Ctx: c, DTO: &commonDTO, BindUri: true}).GetError(); err != nil {
-    return
-  }
-  err := m.Service.DelUserById(&commonDTO)
-  if err != nil {
-    m.ServerFail(ResponseJson{
-      Code: ERR_CODE_DEL_UESR,
-      Msg: err.Error(),
-    })
-    return
-  }
-  m.OK(ResponseJson{})
+	var commonDTO dto.CommonDTO
+	if err := m.BuildRequest(BuildRequestOption{Ctx: c, DTO: &commonDTO, BindUri: true}).GetError(); err != nil {
+		return
+	}
+	err := m.Service.DelUserById(&commonDTO)
+	if err != nil {
+		m.ServerFail(ResponseJson{
+			Code: ERR_CODE_DEL_UESR,
+			Msg:  err.Error(),
+		})
+		return
+	}
+	m.OK(ResponseJson{})
 }

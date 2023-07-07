@@ -49,6 +49,8 @@ func InitRouter() {
 	public := r.Group("/api/v1/public")
 	// 对应的需要认证的 API 的前缀
 	auth := r.Group("/api/v1")
+  // 挂载鉴权中间件
+  auth.Use(middleware.Auth())
 
 	// 初始化基础服务平台的 路由
 	initBasePlatformRoutes()

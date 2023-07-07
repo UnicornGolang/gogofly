@@ -28,7 +28,7 @@ func InitUserRoutes() {
 			authUser.GET("/:id", userApi.GetUserById)
 			authUser.POST("/list", userApi.GetUserList)
 			authUser.PUT("/:id", userApi.UpdateUser)
-      authUser.DELETE("/:id", userApi.DelUserById)
+			authUser.DELETE("/:id", userApi.DelUserById)
 		}
 	})
 }
